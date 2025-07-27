@@ -1,0 +1,6 @@
+module notcurses {
+  header "notcurses.h"
+  link "notcurses"
+  export *
+}
+
