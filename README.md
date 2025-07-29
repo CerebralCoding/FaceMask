@@ -14,10 +14,22 @@ FaceMask supports all natively supported video formats on macOS including ProRes
 
 FaceMask uses a two cycle process (one for analyzing and one for writing), with an optional selective blurring feature based on the persons found during the analysis.
 
-## Dependencies
+The actual blurring of the faces is done by grabbing the CVPixelBuffer of the current frame and passing it as a CIImage, applying a CIFilter to the targeted area before rendering the results back on top of the CVPixelBuffer, moving on to the next frame.
+This also means it is entirely possible to create custom CIFilters via Metal.
 
-[Notcurses](https://github.com/dankamongmen/notcurses) is used for the TUI. Ensure it is installed via:
+### Building from source
+
+If you want to compile the project yourself the latest version of Xcode is required (16.2 as of this writing) as well as [notcurses](https://github.com/dankamongmen/notcurses) for the TUI. 
+Ensure it is installed via:
 
 ```
 brew install notcurses
 ```
+
+Clone the project and open it either in Xcode or compile it directly from the command line via:
+
+```
+swift build -c release
+```
+
+That's it.
