@@ -4,7 +4,7 @@ FaceMask is a Swift command line application for automatic blurring of faces in 
 
 It's built using the core components from my now discontinued app Blufa.
 
-*Please note I'm in the process of cleaning up the old codebase, and will gradually update this repo to a working state!*
+*Please be aware that most of the code is from 2022 and I will gradually rewrite it*
 
 ## Description
 
