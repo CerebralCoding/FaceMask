@@ -1,0 +1,41 @@
+name: Build and Release FaceMask
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. v1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install notcurses
+        run: |
+          brew update
+          brew install notcurses
+
+      - name: Build
+        run: |
+          swift build -c release
+
+      - name: Package Binary
+        run: |
+          mkdir -p dist
+          cp .build/release/FaceMask dist/FaceMask
+          chmod +x dist/FaceMask
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.version }}
+          name: Release ${{ inputs.version }}
+          files: dist/FaceMask
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
