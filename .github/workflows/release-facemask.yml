@@ -42,7 +42,7 @@ jobs:
 
       - name: Build
         run: |
-          swift build -c release --arch arm64 --arch x86_64 --product FaceMask
+          swift build -c release
 
       - name: Package Binary
         run: |
