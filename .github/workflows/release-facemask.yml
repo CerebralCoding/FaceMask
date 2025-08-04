@@ -21,6 +21,12 @@ jobs:
           brew update
           brew install notcurses
 
+      - name: Install Swift 6.1.0
+        run: |
+          curl -L https://github.com/swiftlang/swift/releases/download/6.1.0/swift-6.1.0-macos.tar.gz -o swift.tar.gz
+          tar -xzf swift.tar.gz
+          echo "$PWD/swift-6.1.0-macos/usr/bin" >> $GITHUB_PATH
+
       - name: Build
         run: |
           swift build -c release
