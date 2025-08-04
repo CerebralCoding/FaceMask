@@ -7,6 +7,10 @@ on:
         description: 'Release version (e.g. v1.0.0)'
         required: true
         type: string
+      notes:
+        description: 'Release notes / changelog (optional)'
+        required: false
+        type: string
 
 jobs:
   build:
@@ -15,6 +19,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Cache Homebrew
+        uses: actions/cache@v3
+        with:
+          path: |
+            /usr/local/Homebrew/Library/Taps
+            /usr/local/Homebrew/Cellar
+            /usr/local/Homebrew/var/homebrew
+            ~/Library/Caches/Homebrew
+          key: ${{ runner.os }}-brew-notcurses-${{ hashFiles('.github/workflows/release-facemask.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-brew-notcurses-
 
       - name: Install notcurses
         run: |
@@ -39,6 +55,7 @@ jobs:
         with:
           tag_name: ${{ inputs.version }}
           name: Release ${{ inputs.version }}
+          body: ${{ inputs.notes }}
           files: dist/FaceMask
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
