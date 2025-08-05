@@ -27,12 +27,6 @@ struct AppEnvironment {
         let storageDirectory = homeDirectory.appendingPathComponent("FaceMask", isDirectory: true)
         ensureDirectoryExists(at: storageDirectory, label: "storage")
 
-        let commandLineArguments = CommandLine.arguments
-
-        guard commandLineArguments.count > 2 else {
-            fatalError("ERROR: Missing required argument!")
-        }
-
         self.storageDirectory = storageDirectory
     }
 }

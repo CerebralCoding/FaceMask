@@ -11,8 +11,9 @@ func main() {
     let selectiveBlur = false
 
     guard commandlineArguments.count >= 2 else {
-        print("Usage: facemask <path_to_video> [<blur_pattern> <circularShape? true/false> <hexColor>]")
-        print("Valid blur patterns: \(allCasesString)")
+        CommandLine.error("No arguments provided.")
+        CommandLine.warn("Usage: facemask <path_to_video> [<blur_pattern> <circularShape? true/false> <hexColor>]")
+        CommandLine.warn("Valid blur patterns: \(allCasesString)")
         exit(1)
     }
 
@@ -46,34 +47,42 @@ func main() {
             try fileManager.removeItem(at: outputURL)
         }
     } catch {
-        print("Couldn't remove file")
+        CommandLine.error("Couldn't remove file")
         exit(1)
     }
     Task {
+        let progress = Progress(totalUnitCount: 200)
+
+        ProgressBar.start(progress: progress)
+
         do {
+            CommandLine.info([
+                "Starting blur of file: \(inputURL.lastPathComponent) ",
+                "with blur pattern: \(blurPattern) ",
+                "circular shape: \(circularShape) ",
+            ].joined())
+
             let videoAnalyzer = VideoAnalyzer()
 
-            videoAnalyzer.onStatusUpdate = { status in
-                print(status)
+            videoAnalyzer.onAnalyzedPercentageUpdate = { percentage in
+                progress.completedUnitCount = Int64(percentage)
             }
 
-            videoAnalyzer.onAnalyzedPercentageUpdate = { analyzedPercentage in
-                print("Analyzed: \(analyzedPercentage)%")
+            videoAnalyzer.onWrittenPercentageUpdate = { percentage in
+                progress.completedUnitCount = 100 + Int64(percentage)
             }
 
-            videoAnalyzer.onWrittenPercentageUpdate = { writtenPercentage in
-                print("Exported: \(writtenPercentage)%")
+            guard let outputURL = try await videoAnalyzer.analyze(inputURL: inputURL, userConfig: userConfig, selectiveBlur: selectiveBlur) else {
+                return
             }
 
-            guard let outputURL = try? await videoAnalyzer.analyze(inputURL: inputURL, userConfig: userConfig, selectiveBlur: selectiveBlur) else {
-                throw AnalyzerError("Failed to process video")
-            }
-
-            print("Success! File saved at: \(outputURL.path())")
+            ProgressBar.stop()
+            CommandLine.success("Success! File saved at: \(outputURL.path())")
             clearCache()
             exit(0)
         } catch let error as AnalyzerError {
-            print(error.debugDescription)
+            ProgressBar.stop()
+            CommandLine.error("Failed to process video: \(error.debugDescription)")
             clearCache()
             exit(1)
         }
