@@ -6,30 +6,55 @@ FaceMask is a Swift command-line utility that automatically detects and blurs fa
 
 > ⚠️ Much of the codebase dates back to 2022. It works, but will be gradually refactored and modernized.
 
-## Description
+---
 
-FaceMask is designed to be lean, precise and very fast when doing automatic blurring of faces in videos. It relies only on built-in libraries in macOS (and iOS, ipadOS, visionOS for that matter), so no external computer vision or video handling frameworks is needed. Which means all blurring is done **completely offline!**
+## 🔍 Features
 
-FaceMask supports all natively supported video formats on macOS including ProRes. FaceMask tries to keep the output as close as possible to the source with framerate, colorspace and orientation, while pruning as much metadata as possible including GPS data.
+- ⚡ Ultra-fast automatic face detection and masking
+- 🛡️ All processing is **completely offline** — no cloud, no third-party frameworks
+- 🎥 Supports all native macOS video formats (including ProRes)
+- 🎯 Output preserves framerate, orientation, color space — but strips GPS and metadata
 
-FaceMask uses a two cycle process (one for analyzing and one for writing), with an optional selective blurring feature based on the persons found during the analysis.
+---
 
-The actual blurring of the faces is done by grabbing the CVPixelBuffer of the current frame and passing it as a CIImage, applying a CIFilter to the targeted area before rendering the results back on top of the CVPixelBuffer, moving on to the next frame.
-This also means it is entirely possible to create custom CIFilters via Metal.
+## 🛠 How It Works
 
-### Building from source
+FaceMask performs a two-stage pipeline:
 
-If you want to compile the project yourself the latest version of Xcode is required (16.2 as of this writing) as well as [notcurses](https://github.com/dankamongmen/notcurses) for the TUI. 
-Ensure it is installed via:
+1. **Analysis** — Scans all frames and detects all visible faces
+2. **Writing** — Applies a configurable `CIFilter` (e.g., blur or pixelate) to targeted regions and encodes the output
 
-```
+The system uses native Apple APIs (`Accelerate`, `AVFoundation`, `Vision`, `CoreImage`) and processes each frame by converting it to a `CIImage`, blurring the detected regions, and rendering it back onto the original pixel buffer.
+
+---
+
+## 🔧 Building from Source
+
+You'll need the latest version of Xcode (≥ 16.2) and [Notcurses](https://github.com/dankamongmen/notcurses) for interactive TUI features (optional).
+
+Install Notcurses:
+
+```bash
 brew install notcurses
 ```
 
-Clone the project and open it either in Xcode or compile it directly from the command line via:
+Then build FaceMask:
 
-```
+```bash
 swift build -c release
 ```
 
-That's it.
+That’s it.
+
+---
+
+## 📦 Coming Soon
+
+- Optional **selective blurring** based on face identity
+- Metal based CIFilters
+
+---
+
+## ❤️ Privacy First
+
+FaceMask is built with a simple goal: **keep your media private** while still enabling powerful, automated face masking. No data ever leaves your machine.
