@@ -20,23 +20,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cache Homebrew
-        uses: actions/cache@v3
-        with:
-          path: |
-            /usr/local/Homebrew/Library/Taps
-            /usr/local/Homebrew/Cellar
-            /usr/local/Homebrew/var/homebrew
-            ~/Library/Caches/Homebrew
-          key: ${{ runner.os }}-brew-notcurses-${{ hashFiles('.github/workflows/release-facemask.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-brew-notcurses-
-
-      - name: Install notcurses
-        run: |
-          brew update
-          brew install notcurses
-
       - name: Setup Swift
         uses: swift-actions/setup-swift@v2.3.0
 
