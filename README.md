@@ -30,7 +30,7 @@ The system uses native Apple APIs (`Accelerate`, `AVFoundation`, `Vision`, `Core
 
 ## 🔧 Building from Source
 
-You'll need the latest version of Xcode (≥ 16.2) and [Notcurses](https://github.com/dankamongmen/notcurses) for interactive TUI features (optional).
+You'll need the latest version of Xcode (≥ 16.2) and [Notcurses](https://github.com/dankamongmen/notcurses) for interactive TUI features.
 
 Install Notcurses:
 
