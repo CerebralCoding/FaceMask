@@ -52,3 +52,9 @@ That’s it.
 ## ❤️ Privacy First
 
 FaceMask is built with a simple goal: **keep your media private** while still enabling powerful, automated face masking. No data ever leaves your machine.
+
+---
+
+### 💫 Support This Project
+
+If you find FaceMask useful, consider [starring the repo](https://github.com/CerebralCoding/FaceMask) or [sponsoring its development](https://github.com/sponsors/CerebralCoding) to support privacy-first, open-source tooling.
