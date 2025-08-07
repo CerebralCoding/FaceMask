@@ -39,6 +39,6 @@ jobs:
           tag_name: ${{ inputs.version }}
           name: Release ${{ inputs.version }}
           body: ${{ inputs.notes }}
-          files: dist/FaceMask
+          files: dist/facemask
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
