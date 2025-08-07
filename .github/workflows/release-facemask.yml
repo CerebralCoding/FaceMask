@@ -30,8 +30,8 @@ jobs:
       - name: Package Binary
         run: |
           mkdir -p dist
-          cp .build/release/FaceMask dist/FaceMask
-          chmod +x dist/FaceMask
+          cp .build/release/FaceMask dist/facemask
+          chmod +x dist/facemask
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
