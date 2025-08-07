@@ -1,10 +1,10 @@
 # FaceMask
 
-FaceMask is a Swift command line application for automatic blurring of faces in videos.
+**Automatic face masking tool for video files, designed for privacy-first workflows on macOS.**
 
-It's built using the core components from my now discontinued app Blufa.
+FaceMask is a Swift command-line utility that automatically detects and blurs faces in videos — fast, offline, and without any external dependencies. It’s built using the core components from my now-discontinued iOS app, Blufa.
 
-*Please be aware that most of the code is from 2022 and I will gradually rewrite it*
+> ⚠️ Much of the codebase dates back to 2022. It works, but will be gradually refactored and modernized.
 
 ## Description
 
