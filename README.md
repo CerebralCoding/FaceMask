@@ -30,21 +30,15 @@ The system uses native Apple APIs (`Accelerate`, `AVFoundation`, `Vision`, `Core
 
 ## 🔧 Building from Source
 
-You'll need the latest version of Xcode (≥ 16.2) and [Notcurses](https://github.com/dankamongmen/notcurses) for interactive TUI features.
-
-Install Notcurses:
-
-```bash
-brew install notcurses
-```
-
-Then build FaceMask:
+You'll need the latest version of Xcode (≥ 16.2). No external dependencies are required.
 
 ```bash
 swift build -c release
 ```
 
 That’s it.
+
+> 🛠️ Interactive features will be introduced in a future version and may require additional libraries.
 
 ---
 
