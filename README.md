@@ -55,6 +55,15 @@ FaceMask is built with a simple goal: **keep your media private** while still en
 
 ---
 
+## 📄 License
+
+FaceMask is licensed under the [MIT License](https://opensource.org/licenses/MIT).  
+You are free to use, modify, and distribute this software with attribution.
+
+> See [`LICENSE`](./LICENSE) for full details.
+
+---
+
 ### 💫 Support This Project
 
 If you find FaceMask useful, consider [starring the repo](https://github.com/CerebralCoding/FaceMask) or [sponsoring its development](https://github.com/sponsors/CerebralCoding) to support privacy-first, open-source tooling.
