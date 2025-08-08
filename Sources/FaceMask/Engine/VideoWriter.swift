@@ -57,7 +57,7 @@ final class VideoWriter: @unchecked Sendable {
         let sourceFormatHintAudio = videoData.sourceFormatHintAudio
         let videoCodecs = videoData.videoCodecs
 
-        outputURL = generateOutputURL(inputURL: inputURL)
+        outputURL = AppEnvironment.shared.outputURL
 
         guard let writer = try? AVAssetWriter(outputURL: outputURL, fileType: fileFormat) else {
             throw AnalyzerError("Could not initialize video writer!")
