@@ -30,12 +30,14 @@ struct AppEnvironment {
 
         self.storageDirectory = storageDirectory
 
-        let allCasesString = BlurPattern.allCases.map { "\($0.rawValue)" }.joined(separator: ", ")
+        let allCasesString = BlurPattern.allCases
+            .map { "\($0.rawValue) - \($0.label): \($0.description)" }
+            .joined(separator: "\n")
         let commandlineArguments = ProcessInfo.processInfo.arguments
         guard commandlineArguments.count >= 2 else {
             CommandLine.error("No arguments provided.")
             CommandLine.warn("Usage: facemask <path_to_video> [<blur_pattern> <circularShape? true/false> <hexColor>]")
-            CommandLine.warn("Valid blur patterns: \(allCasesString)")
+            CommandLine.warn("Valid blur patterns:\n\(allCasesString)")
             exit(1)
         }
 
