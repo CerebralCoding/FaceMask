@@ -46,7 +46,8 @@ struct AppEnvironment {
             let variable = BlurPattern(rawValue: faceBlur) {
             variable
         } else {
-            BlurPattern(rawValue: 0)! // Assuming 0 is a valid rawValue for a default BlurPattern
+            // Use the first available BlurPattern as a safe default
+            BlurPattern.allCases.first!
         }
 
         let circularShape: Bool = if commandlineArguments.count > 3,
