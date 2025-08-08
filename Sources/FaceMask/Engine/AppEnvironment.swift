@@ -8,9 +8,7 @@ struct AppEnvironment {
     let userConfig: UserConfig
     let selectiveBlur: Bool
 
-    static let shared: AppEnvironment = {
-        AppEnvironment()
-    }()
+    static let shared: AppEnvironment = .init()
 
     private init() {
         func ensureDirectoryExists(at path: URL, label: String) {
@@ -44,8 +42,9 @@ struct AppEnvironment {
         let inputURL = URL(fileURLWithPath: commandlineArguments[1])
 
         let blurPattern: BlurPattern = if commandlineArguments.count > 2,
-            let faceBlur = Int(commandlineArguments[2]),
-            let variable = BlurPattern(rawValue: faceBlur) {
+                                          let faceBlur = Int(commandlineArguments[2]),
+                                          let variable = BlurPattern(rawValue: faceBlur)
+        {
             variable
         } else {
             // Use the first available BlurPattern as a safe default
@@ -53,7 +52,8 @@ struct AppEnvironment {
         }
 
         let circularShape: Bool = if commandlineArguments.count > 3,
-            let circularValue = Bool(commandlineArguments[3]) {
+                                     let circularValue = Bool(commandlineArguments[3])
+        {
             circularValue
         } else {
             true
@@ -82,6 +82,6 @@ struct AppEnvironment {
         self.inputURL = inputURL
         self.outputURL = outputURL
         self.userConfig = userConfig
-        self.selectiveBlur = false
+        selectiveBlur = false
     }
 }

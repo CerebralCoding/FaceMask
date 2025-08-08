@@ -7,17 +7,17 @@ func main() {
     let env = AppEnvironment.shared
 
     Task {
+        CommandLine.info([
+            "Starting blur of file: \(env.inputURL.lastPathComponent) ",
+            "with blur pattern: \(env.userConfig.blurPattern) ",
+            "circular shape: \(env.userConfig.circularShape) ",
+        ].joined())
+
         let progress = Progress(totalUnitCount: 200)
 
         ProgressBar.start(progress: progress)
 
         do {
-            CommandLine.info([
-                "Starting blur of file: \(env.inputURL.lastPathComponent) ",
-                "with blur pattern: \(env.userConfig.blurPattern) ",
-                "circular shape: \(env.userConfig.circularShape) ",
-            ].joined())
-
             let videoAnalyzer = VideoAnalyzer()
 
             videoAnalyzer.onAnalyzedPercentageUpdate = { percentage in
