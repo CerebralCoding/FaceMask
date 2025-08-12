@@ -14,7 +14,15 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    name: Build for ${{ matrix.arch }}
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            runsOn: macos-latest-large
+          - arch: arm64
+            runsOn: macos-latest
+    runs-on: ${{ matrix.runsOn }}
 
     steps:
       - name: Checkout
@@ -32,6 +40,7 @@ jobs:
           mkdir -p dist
           cp .build/release/FaceMask dist/facemask
           chmod +x dist/facemask
+          (cd dist && zip -r "facemask-${{ matrix.arch }}.zip" facemask)
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -39,6 +48,6 @@ jobs:
           tag_name: ${{ inputs.version }}
           name: Release ${{ inputs.version }}
           body: ${{ inputs.notes }}
-          files: dist/facemask
+          files: dist/facemask-${{ matrix.arch }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
